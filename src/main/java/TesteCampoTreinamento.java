@@ -1,33 +1,28 @@
+import br.rs.matheuspadilha.core.DSL;
+import static br.rs.matheuspadilha.core.DriverFactory.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class TesteCampoTreinamento {
-    private String typeDriver = "webdriver.gecko.driver";
-    private String fileDriver = "<caminho-driver>";
-    private WebDriver driver;
     private DSL dsl;
     
     @Before
     public void inicializa() {
-        System.setProperty(typeDriver, fileDriver);
-        driver = new FirefoxDriver();
-        driver.manage().window().setSize(new Dimension(100, 400));
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-        dsl = new DSL(driver);
+        getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        dsl = new DSL();
     }
     
     @After
     public void finaliza() {
-        driver.quit();
+        killDriver();
     }
     
     @Test
@@ -106,4 +101,39 @@ public class TesteCampoTreinamento {
         Assert.assertEquals("Campo de Treinamento", dsl.obterTexto(By.tagName("h3")));
         Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", dsl.obterTexto(By.className("facilAchar")));
     }
+    
+    @Test
+    public void testJavascript() {
+        WebElement element = getDriver().findElement(By.id("elementosForm:nome"));
+        dsl.executarJS("arguments[0].style.border = arguments[1]", element, "solid 4px red");
+    }
+    
+    @Test
+    public void deveClicarBotaoTabela() {
+        dsl.clicarBotaoTabela("Escolaridade", "Superior", "Botao","elementosForm:tableUsuarios");
+    }
+    
+    @Test
+    public void deveUtilizarEsperaFixa() throws InterruptedException {
+        dsl.clicarButton("buttonDelay");
+        Thread.sleep(5000);
+        dsl.preencherCampo("novoCampo", "deu certo?");
+    }
+    
+    @Test
+    public void deveUtilizarEsperaImplicita() {
+        getDriver().manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+        dsl.clicarButton("buttonDelay");
+        dsl.preencherCampo("novoCampo", "deu certo?");
+        getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    }
+    
+    @Test
+    public void deveUtilizarEsperaExplicita() {
+        dsl.clicarButton("buttonDelay");
+        WebDriverWait wait = new WebDriverWait(getDriver(), 50);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("novoCampo")));
+        dsl.preencherCampo("novoCampo", "deu certo?");
+    }
+    
 }
