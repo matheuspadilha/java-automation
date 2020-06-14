@@ -1,6 +1,7 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -8,60 +9,50 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TesteFramesEJanelas {
     private String typeDriver = "webdriver.gecko.driver";
-    private String driver = "<caminho-driver>";
+    private String fileDriver = "<caminho-driver>";
+    private WebDriver driver;
+    private DSL dsl;
+    
+    @Before
+    public void inicializa() {
+        System.setProperty(typeDriver, fileDriver);
+        driver = new FirefoxDriver();
+        driver.manage().window().setSize(new Dimension(100, 400));
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+        dsl = new DSL(driver);
+    }
+    
+    @After
+    public void finaliza() {
+        driver.quit();
+    }
     
     @Test
     public void deveInteragirComFrames() {
-        System.setProperty(this.typeDriver, this.driver);
-        WebDriver driver = new FirefoxDriver();
-        driver.manage().window().setSize(new Dimension(100, 400));
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-        
-        driver.switchTo().frame("frame1");
-        driver.findElement(By.id("frameButton")).click();
-        
-        Alert alert = driver.switchTo().alert();
-        String msg = alert.getText();
+        dsl.entrarFrame("frame1");
+        dsl.clicarButton("frameButton");
+        String msg = dsl.alertObterTextoEAceita();
         Assert.assertEquals("Frame OK!", msg);
-        alert.accept();
-    
-        driver.switchTo().defaultContent();
-        driver.findElement(By.id("elementosForm:nome")).sendKeys(msg);
-     
-        driver.quit();
+        dsl.sairFrame();
+        dsl.preencherCampo("elementosForm:nome", msg);
     }
     
     @Test
     public void deveInteragirComJanelas() {
-        System.setProperty(this.typeDriver, this.driver);
-        WebDriver driver = new FirefoxDriver();
-        driver.manage().window().setSize(new Dimension(100, 400));
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-    
-        driver.findElement(By.id("buttonPopUpEasy")).click();
-        driver.switchTo().window("Popup");
-        driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
+        dsl.clicarButton("buttonPopUpEasy");
+        dsl.trocarJanela("Popup");
+        dsl.preencherCampo(By.tagName("textarea"),"Deu certo?");
         driver.close();
-        
-        driver.switchTo().window("");
-        driver.findElement(By.tagName("textarea")).sendKeys("e agora?");
-    
-        driver.quit();
+        dsl.trocarJanela("");
+        dsl.preencherCampo(By.tagName("textarea"),"e agora?");
     }
     
     @Test
     public void deveInteragirComJanelasSemTitulo() {
-        System.setProperty(this.typeDriver, this.driver);
-        WebDriver driver = new FirefoxDriver();
-        driver.manage().window().setSize(new Dimension(100, 400));
-        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-        
-        driver.findElement(By.id("buttonPopUpHard")).click();
-        driver.switchTo().window((String) driver.getWindowHandles().toArray()[1]);
-        driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
-        driver.switchTo().window((String) driver.getWindowHandles().toArray()[0]);
-        driver.findElement(By.tagName("textarea")).sendKeys("e agora?");
-        
-        driver.quit();
+        dsl.clicarButton("buttonPopUpHard");
+        dsl.trocarJanela((String) driver.getWindowHandles().toArray()[1]);
+        dsl.preencherCampo(By.tagName("textarea"),"Deu certo?");
+        dsl.trocarJanela((String) driver.getWindowHandles().toArray()[0]);
+        dsl.preencherCampo(By.tagName("textarea"),"e agora?");
     }
 }
