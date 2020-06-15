@@ -1,6 +1,9 @@
+package br.rs.matheuspadilha.test;
+
+import br.rs.matheuspadilha.core.BaseTest;
 import br.rs.matheuspadilha.core.DSL;
 import static br.rs.matheuspadilha.core.DriverFactory.*;
-import org.junit.After;
+import br.rs.matheuspadilha.page.CampoTreinamentoPage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +14,8 @@ import java.util.Collection;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-public class TesteRegrasCadastro {
+public class TesteRegrasCadastro extends BaseTest {
+    
     private DSL dsl;
     private CampoTreinamentoPage page;
     
@@ -39,12 +43,7 @@ public class TesteRegrasCadastro {
         dsl = new DSL();
         page = new CampoTreinamentoPage();
     }
-    
-    @After
-    public void finaliza() {
-        killDriver();
-    }
-    
+   
     @Parameterized.Parameters
     public static Collection<Object[]> getCollection() {
         return Arrays.asList(new Object[][] {

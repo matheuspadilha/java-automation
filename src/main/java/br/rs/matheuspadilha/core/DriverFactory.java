@@ -1,7 +1,7 @@
 package br.rs.matheuspadilha.core;
 
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverFactory {
@@ -15,8 +15,15 @@ public class DriverFactory {
         
         if (driver == null ){
             System.setProperty(typeDriver, fileDriver);
-            driver = new FirefoxDriver();
-            driver.manage().window().setSize(new Dimension(100, 400));
+            switch (Propriedades.browser) {
+                case FIREFOX:
+                    driver = new FirefoxDriver();
+                    break;
+                case CHROME:
+                    driver = new ChromeDriver();
+                    break;
+            }
+            driver.manage().window().maximize();
         }
         return driver;
     }

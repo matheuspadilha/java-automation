@@ -1,3 +1,5 @@
+package br.rs.matheuspadilha.test;
+
 import br.rs.matheuspadilha.core.DSL;
 import static br.rs.matheuspadilha.core.DriverFactory.*;
 import org.junit.After;
@@ -7,6 +9,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 
 public class TestePrime {
+    
     private DSL dsl;
     
     @Before

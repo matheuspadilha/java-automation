@@ -1,21 +1,20 @@
+package br.rs.matheuspadilha.test;
+
 import static br.rs.matheuspadilha.core.DriverFactory.*;
-import org.junit.After;
+import br.rs.matheuspadilha.core.BaseTest;
+import br.rs.matheuspadilha.page.CampoTreinamentoPage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TesteCadastro {
+public class TesteCadastro extends BaseTest {
+    
     private CampoTreinamentoPage page;
     
     @Before
     public void inicializa() {
         getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
         page = new CampoTreinamentoPage();
-    }
-    
-    @After
-    public void finaliza() {
-        killDriver();
     }
     
     @Test

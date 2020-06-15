@@ -1,3 +1,5 @@
+package br.rs.matheuspadilha.test;
+
 import br.rs.matheuspadilha.core.DSL;
 import static br.rs.matheuspadilha.core.DriverFactory.*;
 import org.junit.After;
@@ -6,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TesteAlert {
+    
     private DSL dsl;
     
     @Before

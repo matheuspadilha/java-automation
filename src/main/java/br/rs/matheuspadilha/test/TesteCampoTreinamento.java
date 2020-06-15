@@ -1,3 +1,5 @@
+package br.rs.matheuspadilha.test;
+
 import br.rs.matheuspadilha.core.DSL;
 import static br.rs.matheuspadilha.core.DriverFactory.*;
 import org.junit.After;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TesteCampoTreinamento {
+    
     private DSL dsl;
     
     @Before

@@ -1,3 +1,5 @@
+package br.rs.matheuspadilha.test;
+
 import static br.rs.matheuspadilha.core.DriverFactory.*;
 import org.junit.After;
 import org.junit.Assert;

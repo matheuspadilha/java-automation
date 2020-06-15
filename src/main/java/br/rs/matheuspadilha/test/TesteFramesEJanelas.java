@@ -1,3 +1,5 @@
+package br.rs.matheuspadilha.test;
+
 import br.rs.matheuspadilha.core.DSL;
 import static br.rs.matheuspadilha.core.DriverFactory.*;
 import org.junit.After;
@@ -8,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class TesteFramesEJanelas {
+    
     private DSL dsl;
     
     @Before

@@ -1,3 +1,5 @@
+package br.rs.matheuspadilha.test;
+
 import br.rs.matheuspadilha.core.DSL;
 import static br.rs.matheuspadilha.core.DriverFactory.*;
 import org.junit.After;
@@ -9,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TesteAjax {
+    
     private DSL dsl;
     
     @Before
@@ -30,6 +33,7 @@ public class TesteAjax {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("j_idt799_start")));
         Assert.assertEquals("Teste Ajax", dsl.obterTexto("j_idt725:display"));
     }
+    
 }
 
 
