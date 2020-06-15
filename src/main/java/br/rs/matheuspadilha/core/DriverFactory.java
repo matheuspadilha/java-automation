@@ -5,8 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverFactory {
-    private static String typeDriver = "webdriver.gecko.driver";
-    private static String fileDriver = "<caminho_driver>";
+    
     private static WebDriver driver;
     
     private DriverFactory() {}
@@ -14,12 +13,13 @@ public class DriverFactory {
     public static WebDriver getDriver() {
         
         if (driver == null ){
-            System.setProperty(typeDriver, fileDriver);
             switch (Propriedades.browser) {
                 case FIREFOX:
+                    System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/lib/drivers/firefox/geckodriver");
                     driver = new FirefoxDriver();
                     break;
                 case CHROME:
+                    System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/lib/drivers/chrome/chromedriver");
                     driver = new ChromeDriver();
                     break;
             }
