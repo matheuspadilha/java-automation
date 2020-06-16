@@ -1,4 +1,4 @@
-##Projeto simples de automação
+## Projeto simples de automação
 
 Neste projeto, execute a _**SuiteTeste**_, um teste automatizado simples, que preenche um formulário e valida os campos obrigatórios.
 
@@ -9,7 +9,7 @@ _**TesteFrameEJanelas**_, que visa a interação de um teste com automatizado em
 
 Apresentado no durante o curso: https://www.udemy.com/course/testes-funcionais-com-selenium-webdriver/
 
-####:sparkles: Tecnologias
+#### :sparkles: Tecnologias
 :heavy_check_mark: **Java**  
 :heavy_check_mark: **JUnit**  
 :heavy_check_mark: **Selenium WebDriver** com driver do **chrome** e **firefox** ja implementado.  
@@ -23,6 +23,6 @@ Altere a o valor do `Browsers.CHROME`, para o `Browsers.FIREFOX`
 Chrome: `public static Browsers browser = Browsers.CHROME;`  
 Firefox: `public static Browsers browser = Browsers.FIREFOX;` 
 
-####:vertical_traffic_light: Requisitos 
+#### :vertical_traffic_light: Requisitos 
 Idea: **Eclipse** ou **IntelliJ**  
 Versão: **Java 8**
